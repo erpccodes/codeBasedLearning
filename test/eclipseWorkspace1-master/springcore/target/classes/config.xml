@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean class="firstSpring.Student" name="Student1">
+<property name="studentId">
+<value>232</value>
+</property>
+<property name="studentName">
+<value>Himanshu</value>
+</property>
+<property name="studentAddress">
+<value>Delhi</value>
+</property>
+</bean>
+
+
+<!-- This is second bean -->
+
+<bean class="firstSpring.Student" name="Student2"  p:studentId="121" p:studentName="Rahul" p:studentAddress="Lucknow" />
+
+</beans>

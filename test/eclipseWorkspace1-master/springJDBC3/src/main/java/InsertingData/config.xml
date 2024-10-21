@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+https://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+https://www.springframework.org/schema/context/spring-context.xsd">
+
+<!-- Below are the four methods that need to be implemented of dataSource driver manager -->
+<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" name="ds">
+<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+<property name="url" value="jdbc:mysql://localhost:3306/Student" />
+<property name="username" value="root"/>
+<property name="password" value="Prince@9928"/>
+</bean>
+
+<bean class="org.springframework.jdbc.core.JdbcTemplate" 
+name="jdbcTemplate" p:dataSource-ref="ds"/>
+
+<bean class="InsertingData.dao.studentDaoImp" name="studentDao">
+<property name="jdbcTemplate" ref="jdbcTemplate"/>
+</bean>
+</beans>

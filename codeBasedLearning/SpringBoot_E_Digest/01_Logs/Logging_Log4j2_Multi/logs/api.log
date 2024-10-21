@@ -1,0 +1,10 @@
+2024-09-04 09:00:05 [http-nio-8282-exec-2] INFO  MyController - This is an info log message inside controller.
+2024-09-04 09:00:05 [http-nio-8282-exec-2] ERROR MyController - This is an error log message inside controller.
+2024-09-04 09:19:35 [http-nio-8282-exec-2] INFO  MyController - This is an info log message inside controller.
+2024-09-04 09:19:35 [http-nio-8282-exec-2] ERROR MyController - This is an error log message inside controller.
+2024-09-04 09:19:37 [http-nio-8282-exec-5] INFO  MyController - This is an info log message inside controller.
+2024-09-04 09:19:37 [http-nio-8282-exec-5] ERROR MyController - This is an error log message inside controller.
+2024-09-04 09:24:49 [http-nio-8282-exec-1] INFO  MyController - This is an info log message inside controller.
+2024-09-04 09:24:49 [http-nio-8282-exec-1] ERROR MyController - This is an error log message inside controller.
+2024-09-04 09:29:56 [http-nio-8282-exec-4] INFO  MyController - This is an info log message inside controller.
+2024-09-04 09:29:56 [http-nio-8282-exec-4] ERROR MyController - This is an error log message inside controller.

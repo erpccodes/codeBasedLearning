@@ -1,0 +1,8 @@
+WebContent/
+├── index.jsp         <-- JSP Form page
+├── greeting.jsp      <-- JSP Result page
+└── WEB-INF/
+    └── web.xml       <-- Deployment descriptor
+src/
+└── com.example/
+    └── GreetingServlet.java  <-- Servlet class

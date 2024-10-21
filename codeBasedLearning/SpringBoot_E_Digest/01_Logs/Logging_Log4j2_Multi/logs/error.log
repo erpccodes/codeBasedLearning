@@ -1,0 +1,5 @@
+2024-09-04 09:19:06 [main] ERROR FirstProjectApplication - Testing the Error
+2024-09-04 09:24:37 [main] ERROR FirstProjectApplication - Testing the Error
+2024-09-04 09:24:49 [http-nio-8282-exec-1] ERROR MyController - This is an error log message inside controller.
+2024-09-04 09:29:51 [main] ERROR FirstProjectApplication - Testing the Error
+2024-09-04 09:29:56 [http-nio-8282-exec-4] ERROR MyController - This is an error log message inside controller.

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- Bean for Menu Class -->
+
+
+<!-- Bean can be used for autowire as bytype -->
+<bean class="autoWireXML.Menu" name="menu">
+<property name="burger" value="doubleLayerCheese"/>
+<property name="coca" value="superChill" />
+</bean>
+
+
+<!-- Bean can be used for autowire as byName since Dinner class has object with name item-->
+<bean class="autoWireXML.Menu" name="items">
+<property name="burger" value="singleLayerCheese"/>
+<property name="coca" value="Chill" />
+</bean>
+
+
+
+<bean class="autoWireXML.Dinner" name="dinner" autowire="byName">
+<property name="price" value="123"/>
+</bean>
+
+
+</beans>

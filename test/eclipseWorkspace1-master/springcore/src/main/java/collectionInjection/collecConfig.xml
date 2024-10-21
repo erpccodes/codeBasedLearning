@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean class="collectionInjection.Employee" name="Employee1">
+<property name="employeeId" value="232"/>
+
+<property name="phones">
+<list>
+<value>himanshu</value>
+<value>Rahul</value>
+<value>Anand</value>
+</list>
+</property>
+
+<property name="courses">
+<map>
+<entry key="12" value="First" />
+<entry key="11" value="Second" />
+</map>
+</property>
+
+<property name="address">
+<set>
+<value>Delhi</value>
+<value>Mumbai</value>
+<value>Delhi</value>
+</set>
+
+</property>
+
+
+<property name="prop">
+<props>
+
+<prop key="123">Himanshu</prop>
+<prop key="132">Prince</prop>
+
+</props>
+
+</property>
+
+</bean>
+
+
+<!-- This is second bean -->
+
+<bean class="firstSpring.Student" name="Student2"  p:studentId="121" p:studentName="Rahul" p:studentAddress="Lucknow" />
+
+</beans>
