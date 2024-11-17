@@ -1,9 +1,8 @@
 package com.example.Journal.controller;
 
 
-import java.util.List;
-import java.util.Optional;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,30 +26,30 @@ public class JournalController {
 	@Autowired
 	private JournalService journalService;
 	
-	@GetMapping
-	public List<Journal> GetJournals() {
-		return journalService.getAll();
+	@GetMapping("/{username}")
+	public ResponseEntity<?> GetJournalsOfUser(@PathVariable String username) {
+		return journalService.getAllJournalEntriesOfUser(username);
 	}
 	
-	@PostMapping
-	public ResponseEntity<Journal> PostJournal(@RequestBody Journal journal) {
-		return journalService.saveEntry(journal);
+	@PostMapping("/{username}")
+	public ResponseEntity<Journal> PostJournal(@PathVariable String username,@RequestBody Journal journal) {
+		return journalService.saveJournalEntryOfUser(journal,username);
 	}
 	
-	@PutMapping("/id/{id}")
-	public void UpdateJournal(@PathVariable String id,@RequestBody Journal journal) {
-		journalService.updateJournal(id,journal);
+	@PutMapping("/id/{username}/{id}")
+	public void UpdateJournal(@PathVariable String username,@PathVariable ObjectId id,@RequestBody Journal journal) {
+		journalService.updateJournal(username,id,journal);
 		
 	}
 	 
-	@DeleteMapping("/id/{id}")
-	public ResponseEntity<Journal> DeleteJournal(@PathVariable String id) {
-		return journalService.deleteJournal(id);
+	@DeleteMapping("/id/{username}/{id}")
+	public ResponseEntity<Journal> DeleteJournalforUser(@PathVariable String username,@PathVariable ObjectId id) {
+		return journalService.deleteJournal(username,id);
 		
 	}
 	
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Journal> GetById(@PathVariable String id){
+	public ResponseEntity<Journal> GetById(@PathVariable ObjectId id){
 		return journalService.getJournalforId(id);
 	}
 }

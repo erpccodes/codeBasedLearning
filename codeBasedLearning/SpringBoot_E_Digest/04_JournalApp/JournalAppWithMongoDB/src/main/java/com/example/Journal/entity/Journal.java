@@ -2,28 +2,24 @@ package com.example.Journal.entity;
 
 import java.time.LocalDateTime;
 
-
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 
 // If the below annotation is not specified then table name will be class name is small case
 @Document(collection = "myJournal")
-@Getter
-@Setter
+// data annotation are possible using Lombok lib
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
-@ToString
+
 public class Journal {
 
 	@Id
-	private String id;
+	private ObjectId id;
 	private String Topic;
 	private String content;
 	private LocalDateTime date; 
