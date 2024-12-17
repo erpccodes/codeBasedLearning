@@ -23,9 +23,10 @@ public class UserService {
 	}
 
 	
-	public ResponseEntity<User> saveEntry(User user) {
+	public ResponseEntity<?> saveEntry(User user) {
 		// save will update if id is already present but insert does not allows duplicates
 		//journalRepository.save(journal);
+		if((user.getUserName()!=null && !user.getPassword().isEmpty()) && (user.getPassword()!=null && !user.getPassword().isEmpty())) {
 		try {
 			userRepository.insert(user);
 		return new  ResponseEntity<>(user,HttpStatus.CREATED);
@@ -33,8 +34,9 @@ public class UserService {
 			System.out.println("Duplicate key not allowed: "+e.getMessage());
 			throw new CustomApplicationException("Duplicate Key not allowed: Id="+user.getId(),HttpStatus.CONFLICT);
 			// TODO: handle exception
-		}	
-		
+		}
+		}
+		return new ResponseEntity<>("username or password cannot be null or Blank",HttpStatus.BAD_REQUEST);
 	}
 	
 	public ResponseEntity<User> getUserByUserName(String username){

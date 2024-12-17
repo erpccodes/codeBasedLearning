@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Journal.entity.Journal;
 import com.example.Journal.entity.User;
@@ -26,6 +27,7 @@ public class JournalService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Transactional
 	public ResponseEntity<Journal> saveJournalEntryOfUser(Journal journal,String username) {
 		// save will update if id is already present but insert does not allows duplicates
 		//journalRepository.save(journal);
@@ -45,11 +47,14 @@ public class JournalService {
 	
 	public ResponseEntity<?> getAllJournalEntriesOfUser(String username){
 		User user=userRepository.findByUserName(username);
+		if(user!=null) {
 		List<Journal> journals=user.getJournalEntries();
 		if(journals!=null || !journals.isEmpty())
 			return new ResponseEntity<>(journals,HttpStatus.OK);
 		else 
 			return new ResponseEntity<>("No Journal for this User",HttpStatus.NOT_FOUND);
+	}else
+		return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
 	}
 	
 	public ResponseEntity<Journal> getJournalforId(ObjectId id){

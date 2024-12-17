@@ -30,7 +30,7 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<User> PostJournal(@RequestBody User user) {
+	public ResponseEntity<?> PostJournal(@RequestBody User user) {
 		return userService.saveEntry(user);
 	}
 	

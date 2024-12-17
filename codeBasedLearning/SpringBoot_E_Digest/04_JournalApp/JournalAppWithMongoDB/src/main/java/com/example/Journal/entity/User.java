@@ -30,4 +30,5 @@ public class User {
 	private String password;
 	@DBRef //annotation stores the reference (ObjectId) to the Journal document(s) in the parent document.
 	private List<Journal> journalEntries= new ArrayList<>();
+	private List<String> roles;
 }
