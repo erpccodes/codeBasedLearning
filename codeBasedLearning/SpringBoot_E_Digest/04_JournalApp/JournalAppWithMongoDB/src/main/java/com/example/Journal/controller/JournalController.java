@@ -4,7 +4,10 @@ package com.example.Journal.controller;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,30 +29,58 @@ public class JournalController {
 	@Autowired
 	private JournalService journalService;
 	
-	@GetMapping("/{username}")
-	public ResponseEntity<?> GetJournalsOfUser(@PathVariable String username) {
+	@GetMapping()
+	public ResponseEntity<?> GetJournalsOfUser() {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
+		String username=authentication.getName();
 		return journalService.getAllJournalEntriesOfUser(username);
 	}
 	
-	@PostMapping("/{username}")
-	public ResponseEntity<Journal> PostJournal(@PathVariable String username,@RequestBody Journal journal) {
+	@PostMapping()
+	public ResponseEntity<Journal> PostJournal(@RequestBody Journal journal) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
+		String username=authentication.getName();
 		return journalService.saveJournalEntryOfUser(journal,username);
 	}
 	
-	@PutMapping("/id/{username}/{id}")
-	public void UpdateJournal(@PathVariable String username,@PathVariable ObjectId id,@RequestBody Journal journal) {
-		journalService.updateJournal(username,id,journal);
+	@PutMapping("/id/{id}")
+	public ResponseEntity<?> UpdateJournal(@PathVariable String id,@RequestBody Journal journal) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
+		String username=authentication.getName();
+		// Handling case when we send wrong id in path variable then spring tries to convert this string to mongo objectid 
+		//and fails as it does not match the expected format of objectId so replace the datatype to string in path variable
+		// and the below check is added
+		 if (!ObjectId.isValid(id)) {
+		        return new ResponseEntity<>("Journal Id is invalid", HttpStatus.BAD_REQUEST); 
+		    }
+
+		    ObjectId objectId = new ObjectId(id);
+		return journalService.updateJournal(username,objectId,journal);
 		
 	}
 	 
-	@DeleteMapping("/id/{username}/{id}")
-	public ResponseEntity<Journal> DeleteJournalforUser(@PathVariable String username,@PathVariable ObjectId id) {
-		return journalService.deleteJournal(username,id);
+	@DeleteMapping("/id/{id}")
+	public ResponseEntity<?> DeleteJournalforUser(@PathVariable String id) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
+		String username=authentication.getName();
+		 if (!ObjectId.isValid(id)) {
+		        return new ResponseEntity<>("Journal Id is invalid", HttpStatus.BAD_REQUEST);
+		    }
+
+		    ObjectId objectId = new ObjectId(id);
+		return journalService.deleteJournal(username,objectId);
 		
 	}
 	
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Journal> GetById(@PathVariable ObjectId id){
-		return journalService.getJournalforId(id);
+	public ResponseEntity<?> GetById(@PathVariable String id){
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
+		String username=authentication.getName();
+		if (!ObjectId.isValid(id)) {
+	        return new ResponseEntity<>("Journal Id is invalid", HttpStatus.BAD_REQUEST);
+	    }
+
+	    ObjectId objectId = new ObjectId(id);
+		return journalService.getJournalforId(objectId,username);
 	}
 }

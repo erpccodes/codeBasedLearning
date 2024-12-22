@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.example.Journal.entity.User;
 import com.example.Journal.repository.UserRepository;
 
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	@Autowired
@@ -22,6 +24,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 			.password(user.getPassword())
 			.roles(user.getRoles().toArray(new String[0]))
 			.build();
+			
+			System.out.println("loaded User: "+ userDetails.toString());
 			
 			return userDetails;
 		}

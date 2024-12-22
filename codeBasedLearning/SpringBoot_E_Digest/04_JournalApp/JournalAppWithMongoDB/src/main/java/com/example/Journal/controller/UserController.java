@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,29 +25,40 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping
-	public List<User> GetJournals() {
+	@GetMapping("/admin/getUsers")
+	public List<User> GetAllUsers() {
 		return userService.getAll();
 	}
 	
-	@PostMapping
+	@PostMapping("/admin/add")
+	public ResponseEntity<?> CreateAdmin(@RequestBody User user) {
+		return userService.saveEntry(user);
+	}
+	
+	@PostMapping("/add")
 	public ResponseEntity<?> PostJournal(@RequestBody User user) {
 		return userService.saveEntry(user);
 	}
 	
-	@PutMapping("/{username}")
-	public ResponseEntity<User> UpdateJournal(@PathVariable String username,@RequestBody User user) {
+	@PutMapping("/perform")
+	public ResponseEntity<User> UpdateJournal(@RequestBody User user) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();  //Fetching the object of currently authenticated user.
+		String username=authentication.getName();
 		return userService.updateUser(username,user);
 	}
 	
-	@DeleteMapping("/{username}")
-	public ResponseEntity<?> deleteUser(@PathVariable String username) {
+	@DeleteMapping("/perform")
+	public ResponseEntity<?> deleteUser() {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String username=authentication.getName();
 		return userService.deleteUser(username);
 		
 	}
 	
-	@GetMapping("/{username}")
-	public ResponseEntity<User> GetById(@PathVariable String username){
+	@GetMapping("/perform")
+	public ResponseEntity<User> GetById(){
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String username=authentication.getName();
 		return userService.getUserByUserName(username);
 	}
 }

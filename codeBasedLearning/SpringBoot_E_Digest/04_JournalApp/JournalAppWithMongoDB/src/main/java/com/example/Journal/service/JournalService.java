@@ -2,7 +2,7 @@ package com.example.Journal.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Journal.entity.Journal;
 import com.example.Journal.entity.User;
-import com.example.Journal.exception.CustomApplicationException;
+
 import com.example.Journal.repository.JournalRepository;
 import com.example.Journal.repository.UserRepository;
 
@@ -47,43 +47,55 @@ public class JournalService {
 	
 	public ResponseEntity<?> getAllJournalEntriesOfUser(String username){
 		User user=userRepository.findByUserName(username);
-		if(user!=null) {
 		List<Journal> journals=user.getJournalEntries();
-		if(journals!=null || !journals.isEmpty())
+		if(journals!=null && !journals.isEmpty())
 			return new ResponseEntity<>(journals,HttpStatus.OK);
 		else 
 			return new ResponseEntity<>("No Journal for this User",HttpStatus.NOT_FOUND);
-	}else
-		return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
 	}
 	
-	public ResponseEntity<Journal> getJournalforId(ObjectId id){
-		Optional<Journal> journal=journalRepository.findById(id);
-		if(journalRepository.findById(id).isPresent()) {
-		return new ResponseEntity<>(journalRepository.findById(id).get(),HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	public ResponseEntity<?> getJournalforId(ObjectId id,String username){
+		User user=userRepository.findByUserName(username);
+		 Journal journal = user.getJournalEntries().stream()
+		            .filter(entry -> entry.getId().equals(id))
+		            .findFirst()
+		            .orElse(null);
+		if(journal != null){
+		return new ResponseEntity<>(journal,HttpStatus.OK);
 		}
+			return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
 	}
 	
 	public  ResponseEntity<?> updateJournal(String username,ObjectId id,Journal journalNew){
-		Journal journalOld=journalRepository.findById(id).orElse(null);
-		if(journalOld!=null) {
-			journalOld.setTopic(journalNew.getTopic()!=null && !journalNew.getTopic().equals("")? journalNew.getTopic() : journalOld.getTopic());
-			journalOld.setContent(journalNew.getContent()!=null && !journalNew.getContent().equals("")? journalNew.getContent() : journalOld.getContent());
-			journalRepository.save(journalOld); 
-			return new ResponseEntity<>(HttpStatus.OK);
+		User user=userRepository.findByUserName(username);
+		Journal journal = user.getJournalEntries().stream()
+	            .filter(entry -> entry.getId().equals(id))
+	            .findFirst()
+	            .orElse(null);
+		if(journal != null){
+			journal.setTopic(journalNew.getTopic()!=null && !journalNew.getTopic().equals("")? journalNew.getTopic() : journal.getTopic());
+			journal.setContent(journalNew.getContent()!=null && !journalNew.getContent().equals("")? journalNew.getContent() : journal.getContent());
+			journalRepository.save(journal); 
+			return new ResponseEntity<>(HttpStatus.OK);	
 		}else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			
 	}
+	// @Transactional is required because if the delete operation fails in between then from both journal 
+	// and user table data will not delete 
+	// it will delete the entry for both or neither of one
 	
+	@Transactional
 	public ResponseEntity<Journal> deleteJournal(String username,ObjectId id) {
-		if(journalRepository.findById(id)!=null) {
-		journalRepository.deleteById(id);
+	boolean removed=false;
 		User user=userRepository.findByUserName(username);
-		user.getJournalEntries().removeIf(x->x.getId().equals(id));
+		removed=user.getJournalEntries().removeIf(x->x.getId().equals(id));
+		if(removed) {
+		//No Cascade Delete by Default: MongoDB does not automatically delete the referenced documents 
+			// in the other collection when you delete a document.
+			// therfore we are deleting entries from both collections
 		userRepository.save(user);
+		journalRepository.deleteById(id);
 		return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}else
 			return new  ResponseEntity<>(HttpStatus.BAD_REQUEST);
