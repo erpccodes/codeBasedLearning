@@ -15,7 +15,7 @@ import org.springframework.data.annotation.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// Note we mark @Document but when we use JPA we Use @Entity
+// Note we mark @Document in mongo but when we use JPA we Use @Entity
 @Document(collection = "users")
 @Data
 @NoArgsConstructor

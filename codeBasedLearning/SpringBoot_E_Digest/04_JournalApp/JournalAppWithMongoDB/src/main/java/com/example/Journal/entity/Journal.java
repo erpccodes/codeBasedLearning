@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-// If the below annotation is not specified then table name will be class name is small case
+// If the below collection is not specified then table name will be class name is small case
 @Document(collection = "myJournal")
 // data annotation are possible using Lombok lib
 @Data

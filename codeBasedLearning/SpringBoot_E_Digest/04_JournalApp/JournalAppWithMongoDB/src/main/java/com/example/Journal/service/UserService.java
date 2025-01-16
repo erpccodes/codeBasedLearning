@@ -3,7 +3,6 @@ package com.example.Journal.service;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +35,6 @@ public class UserService {
 			user.setPassword(encoder.encode(user.getPassword()));
 			if(user.getRoles()==null)
 				user.setRoles(Arrays.asList("USER"));
-			else
-				user.setRoles(Arrays.asList("ADMIN"));
 			userRepository.insert(user);
 		return new  ResponseEntity<>(user,HttpStatus.CREATED);
 		}catch (Exception e) {

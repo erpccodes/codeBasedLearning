@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-public class JournalWithoutDbApplication {
+public class JournalAppWithMongoDB {
 
 	public static void main(String[] args) {
-		SpringApplication.run(JournalWithoutDbApplication.class, args);
+		SpringApplication.run(JournalAppWithMongoDB.class, args);
 	}
 	
 	@Bean

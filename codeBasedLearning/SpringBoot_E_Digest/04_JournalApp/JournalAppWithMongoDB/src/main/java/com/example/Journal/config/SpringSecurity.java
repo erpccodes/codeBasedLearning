@@ -47,6 +47,7 @@ public class SpringSecurity{
 	        
 	        authenticationManagerBuilder.userDetailsService(userdetailsServiceImpl)
 	            .passwordEncoder(passwordEncoder);
+	        
 
 	        return authenticationManagerBuilder.build();
 	    }
