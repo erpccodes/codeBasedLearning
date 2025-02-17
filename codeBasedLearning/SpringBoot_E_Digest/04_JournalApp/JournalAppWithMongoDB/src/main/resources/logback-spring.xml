@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!--
+      Console Appender:
+      This appender outputs logs to the console (standard output).
+    -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!--
+          Encoder defines the log message format.
+          %d{...} is the date/time,
+          [%thread] is the thread name,
+          %-5level is the log level (left-padded to 5 characters),
+          %logger{36} is the logger name (up to 36 characters),
+          %msg is the actual log message,
+          %n is a newline.
+        -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+      Rolling File Appender:
+      This appender writes logs to a file and rolls the log file based on the date.
+      It maintains up to 5 log files (one per day) at a time.
+    -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--
+          Specifies the active log file.
+          New log entries will be appended to this file.
+        -->
+        <file>logs/myApp.log</file>
+        
+        <!--
+          RollingPolicy defines how and when the log files are rotated.
+          Here, we use a TimeBasedRollingPolicy to create a new log file daily.
+        -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--
+              FileNamePattern defines the naming convention for rolled-over files.
+              %d{yyyy-MM-dd} inserts the date into the filename.
+            -->
+            <fileNamePattern>logs/myApp-%d{yyyy-MM-dd}.log</fileNamePattern>
+            
+            <!--
+              maxHistory limits the number of log files to keep.
+              In this case, only the logs for the last 5 days will be preserved.
+            -->
+            <maxHistory>5</maxHistory>
+            
+            <!--
+              Optionally, you can add a totalSizeCap to limit the total disk space used by the logs.
+              Uncomment and adjust the following line if needed.
+              Example: <totalSizeCap>50MB</totalSizeCap>
+            -->
+            <!-- <totalSizeCap>50MB</totalSizeCap> -->
+        </rollingPolicy>
+        
+        <!--
+          Encoder for file logging: defines the format of each log entry in the file.
+          The pattern is similar to the console encoder.
+        -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+      Root Logger:
+      The root logger captures all logging events. Here, we set the level to INFO,
+      meaning that only INFO, WARN, ERROR, etc., messages will be logged.
+      Both the CONSOLE and FILE appenders are attached so that logs go to both destinations.
+    -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+
+    <!--
+      Custom Logger Example:
+      This logger is configured for a specific package (e.g., your service layer).
+      It’s set to DEBUG level, which means more detailed logs will be captured for that package.
+      The additivity="false" flag prevents duplicate logging (i.e., the messages won't be passed to the root logger).
+    -->
+    <logger name="com.example.Journal.service" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </logger>
+
+</configuration>

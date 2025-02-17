@@ -14,15 +14,22 @@ import com.example.Journal.entity.User;
 import com.example.Journal.exception.CustomApplicationException;
 import com.example.Journal.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
 	private final PasswordEncoder encoder=new BCryptPasswordEncoder();
+	
+	
+	
 
 	public List<User> getAll() {
 		// TODO Auto-generated method stub
+		log.info("Get ALL call, Users list: " + userRepository.findAll());
 		return userRepository.findAll();
 	}
 
@@ -36,9 +43,10 @@ public class UserService {
 			if(user.getRoles()==null)
 				user.setRoles(Arrays.asList("USER"));
 			userRepository.insert(user);
+			log.info("inside save Entry, User saved sucessfully with Username:  "+user.getUserName());
 		return new  ResponseEntity<>(user,HttpStatus.CREATED);
 		}catch (Exception e) {
-			System.out.println("Duplicate key not allowed: "+e.getMessage());
+			log.error("inside save Entry, Duplicate key not allowed: "+e.getMessage());
 			throw new CustomApplicationException("Duplicate Key not allowed: Id="+user.getId(),HttpStatus.CONFLICT);
 			// TODO: handle exception
 		}
@@ -47,6 +55,7 @@ public class UserService {
 	}
 	
 	public ResponseEntity<User> getUserByUserName(String username){
+		log.info("Get User By Username call, User: " + userRepository.findByUserName(username));
 		return new ResponseEntity<>(userRepository.findByUserName(username),HttpStatus.OK);
 	}
 	
@@ -55,12 +64,14 @@ public class UserService {
 			userInDb.setUserName(user.getUserName());		
 			userInDb.setPassword(encoder.encode(user.getPassword()));
 			userRepository.save(userInDb);
+			log.info("inside updateUser, User updated sucessfully with Username:  "+userInDb.getUserName());
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
 	}
 	
 	public ResponseEntity<?> deleteUser(String username) {
 			userRepository.deleteByUserName(username);
+			log.info("inside deleteUser, User deleted sucessfully with Username:  "+username);
 		return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
