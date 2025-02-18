@@ -55,7 +55,7 @@ public class UserService {
 	}
 	
 	public ResponseEntity<User> getUserByUserName(String username){
-		log.info("Get User By Username call, User: " + userRepository.findByUserName(username));
+		log.info("Get User By Username call, User: " + username);
 		return new ResponseEntity<>(userRepository.findByUserName(username),HttpStatus.OK);
 	}
 	
