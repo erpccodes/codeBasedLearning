@@ -38,7 +38,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build and analyze
-        working-directory: codeBasedLearning/SpringBoot_E_Digest/04_JournalApp  # Change this to the relative path of your Maven project
+        working-directory: codeBasedLearning/SpringBoot_E_Digest/04_JournalApp/JournalAppWithMongoDB  # Change this to the relative path of your Maven project
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=erpccodes_codebasedlearning
