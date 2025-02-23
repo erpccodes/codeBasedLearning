@@ -22,10 +22,10 @@ public class WeatherService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	 @Value("${weather.api.key}") // API Key from application.properties
+	 @Value("${weather.api.key:defaultWeatherApiKey}") // API Key from application.properties
 	    private String apiKey;
 	 
-	 @Value("${ipinfo.token}")
+	 @Value("${ipinfo.token:defaultIpInfoToken}")
      private String token;
 	 
 	 private static final String BASE_URL ="https://api.openweathermap.org/data/2.5/weather";
