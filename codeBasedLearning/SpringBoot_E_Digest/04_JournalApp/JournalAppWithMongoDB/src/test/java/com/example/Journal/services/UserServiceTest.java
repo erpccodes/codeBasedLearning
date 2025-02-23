@@ -22,17 +22,25 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.Journal.dto.UserDTO;
 import com.example.Journal.entity.User;
+import com.example.Journal.entity.WeatherResponse;
+import com.example.Journal.entity.WeatherResponse.Main;
 import com.example.Journal.repository.UserRepository;
 import com.example.Journal.service.UserService;
+import com.example.Journal.service.WeatherService;
 
 public class UserServiceTest {
 	
 	@InjectMocks //Use @InjectMocks to inject those mocks(@mock dependencies) into the class you're testing(user service).
 	private UserService userService;
+	
+	@Mock
+	private WeatherService weatherService;
 	
 	@Mock // Use @Mock for mocking the external dependencies, such as repositories, external services, or utilities.
 	private UserRepository userRepository;
@@ -63,9 +71,9 @@ public class UserServiceTest {
 		
 		// Assert
 		assertEquals(HttpStatus.CREATED,response.getStatusCode());  // Ensure HTTP status is CREATED.
-		User savedUser=(User) response.getBody();
+		UserDTO savedUser= (UserDTO) response.getBody();
 		assertNotNull(savedUser); // The saved user should not be null.
-		assertTrue(encoder.matches("TestPassword", savedUser.getPassword())); // Ensure the password is encoded.
+	//	assertTrue(encoder.matches("TestPassword", savedUser.getPassword())); // Ensure the password is encoded.
 		
 		 // Verify interaction
 		verify(userRepository, times(1)).insert(any(User.class)); // Verify the insert method was called once.
@@ -112,15 +120,29 @@ public class UserServiceTest {
         user.setUserName("user1");
         user.setPassword("password");
         user.setRoles(Collections.singletonList("USER"));
+        UserDTO userDTO = userService.mapToDTO(user);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRemoteAddr("127.0.0.1"); // Local IP for testing
+        
+        WeatherResponse weatherResponse = new WeatherResponse();
+        Main main=new Main();
+        main.setTemptemperature(25);
+        main.setFeelsLike(27);
+        weatherResponse.setMain(main);
+        weatherResponse.setCity("Dadri");
+        
 
         when(userRepository.findByUserName("user1")).thenReturn(user); // Mock the findByUserName method.
+        
+       when(weatherService.getCurrentWeather(request)).thenReturn(weatherResponse);
 
         // Act: Call the getUserByUserName method.
-        ResponseEntity<User> response = userService.getUserByUserName("user1");
+        ResponseEntity<?> response = userService.getUserByUserName("user1",request);
 
         // Assert: Verify the response.
         assertEquals(HttpStatus.OK, response.getStatusCode()); // Ensure HTTP status is OK.
-        assertEquals(user, response.getBody()); // Validate the returned user.
+        String expectedResponse = "Hi " + user.getUserName() + "\nTodays Weather :" + weatherResponse + "\n" + userService.mapToDTO(user);
+        assertEquals(expectedResponse, response.getBody()); // Validate the returned user.
         verify(userRepository, times(1)).findByUserName("user1"); // Ensure the findByUserName method was called once.
     }
 	

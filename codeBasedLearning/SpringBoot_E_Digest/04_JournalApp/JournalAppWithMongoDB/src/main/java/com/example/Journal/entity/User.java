@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mongodb.lang.NonNull;
 
 import org.bson.types.ObjectId;
@@ -27,8 +28,14 @@ public class User {
 	@NonNull
 	private String userName;
 	@NonNull
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	@DBRef //annotation stores the reference (ObjectId) to the Journal document(s) in the parent document.
 	private List<Journal> journalEntries= new ArrayList<>();
 	private List<String> roles;
+	@Override
+	public String toString() {
+		return "User: [id=" + id + ", userName=" + userName + ", password=" + password + ", journalEntries="
+				+ journalEntries + ", roles=" + roles + "]";
+	}
 }

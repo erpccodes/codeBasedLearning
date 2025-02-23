@@ -30,7 +30,7 @@
           Specifies the active log file.
           New log entries will be appended to this file.
         -->
-        <file>logs/myApp.log</file>
+      <!--   <file>logs/myApp.log</file>   use this if first log file will be named like this -->
         
         <!--
           RollingPolicy defines how and when the log files are rotated.

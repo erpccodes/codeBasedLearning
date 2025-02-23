@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.example.Journal.dto.UserDTO;
 import com.example.Journal.entity.User;
 import com.example.Journal.service.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/user")
@@ -26,7 +28,7 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/admin/getUsers")
-	public List<User> GetAllUsers() {
+	public List<UserDTO> GetAllUsers() {
 		return userService.getAll();
 	}
 	
@@ -56,9 +58,9 @@ public class UserController {
 	}
 	
 	@GetMapping("/perform")
-	public ResponseEntity<User> GetById(){
+	public ResponseEntity<?> GetById(HttpServletRequest request){
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String username=authentication.getName();
-		return userService.getUserByUserName(username);
+		return userService.getUserByUserName(username,request);
 	}
 }
