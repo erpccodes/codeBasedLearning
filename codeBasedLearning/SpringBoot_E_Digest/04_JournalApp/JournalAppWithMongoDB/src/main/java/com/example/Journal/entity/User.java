@@ -33,9 +33,15 @@ public class User {
 	@DBRef //annotation stores the reference (ObjectId) to the Journal document(s) in the parent document.
 	private List<Journal> journalEntries= new ArrayList<>();
 	private List<String> roles;
+	private String email;
+	private boolean sentimentAnalysis;
+	
+	
 	@Override
 	public String toString() {
 		return "User: [id=" + id + ", userName=" + userName + ", password=" + password + ", journalEntries="
-				+ journalEntries + ", roles=" + roles + "]";
+				+ journalEntries + ", roles=" + roles + ", email=" + email + ", sentimentAnalysis=" + sentimentAnalysis
+				+ "]";
 	}
+	
 }
