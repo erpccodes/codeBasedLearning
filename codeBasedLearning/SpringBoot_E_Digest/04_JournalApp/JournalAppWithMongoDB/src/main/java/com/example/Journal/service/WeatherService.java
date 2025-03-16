@@ -49,6 +49,9 @@ public class WeatherService {
 	        
             String city= (String) ipresponse.get("city");
             log.info("City: " +city);
+            
+            
+            
             String url = String.format("%s?q=%s&appid=%s&units=metric", BASE_URL, city, apiKey);
             log.info("FINAL URL: " + url);	
 	

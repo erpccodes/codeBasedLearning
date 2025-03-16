@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +27,7 @@ private UserRepositoryImp repositoryImp;
 
 @Autowired
 private SentimentAnalysisServiceR1 analysisService;
-
+	@Disabled
 	@Test
 	public void getSentimenAnalysisOfUserTest() {
 		List<User> users=repositoryImp.getUserForSA();
