@@ -22,6 +22,9 @@ public class WeatherService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	@Autowired
+	private RedisService redisService;
+	
 	 @Value("${weather.api.key:defaultWeatherApiKey}") // API Key from application.properties
 	    private String apiKey;
 	 
@@ -50,7 +53,11 @@ public class WeatherService {
             String city= (String) ipresponse.get("city");
             log.info("City: " +city);
             
-            
+            // Check Redis cache first
+            WeatherResponse cachedWeather = redisService.getCachedWeather(city);
+            if (cachedWeather != null) {
+                return cachedWeather;
+            }
             
             String url = String.format("%s?q=%s&appid=%s&units=metric", BASE_URL, city, apiKey);
             log.info("FINAL URL: " + url);	
@@ -61,6 +68,11 @@ public class WeatherService {
 	        log.info("response: " + response);
 
 	        log.info("WeatherResponse: {}", response.getBody());
+	        
+	     // Cache the response
+	        if (response.getBody() != null) {
+	            redisService.cacheWeatherResponse(city, response.getBody());
+	        }
 	        
 	        return response.getBody();
 }
