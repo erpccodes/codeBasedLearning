@@ -399,7 +399,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_sU8lEMLoEe-Ylvh1L5-r6w" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_UvrkwNPPEe-Vpqz9ZUKUBQ" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_sBOX6cLoEe-Ylvh1L5-r6w"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_MN_DYOluEe-TO4Ff6RyONA" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_sBOX6cLoEe-Ylvh1L5-r6w"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_sU8lEcLoEe-Ylvh1L5-r6w" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -407,8 +407,8 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_sU8lE8LoEe-Ylvh1L5-r6w" elementId="org.eclipse.ui.workbench.edit">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_UvsL0tPPEe-Vpqz9ZUKUBQ" elementId="undo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/undo_edit.png" tooltip="Undo" enabled="false" command="_sBJfYcLoEe-Ylvh1L5-r6w"/>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_UvsL09PPEe-Vpqz9ZUKUBQ" elementId="redo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/redo_edit.png" tooltip="Redo" enabled="false" command="_sBLUm8LoEe-Ylvh1L5-r6w"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_MOCGsOluEe-TO4Ff6RyONA" elementId="undo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/undo_edit.png" tooltip="Undo" enabled="false" command="_sBJfYcLoEe-Ylvh1L5-r6w"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_MOD74OluEe-TO4Ff6RyONA" elementId="redo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/redo_edit.png" tooltip="Redo" enabled="false" command="_sBLUm8LoEe-Ylvh1L5-r6w"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_sU8lFMLoEe-Ylvh1L5-r6w" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -429,7 +429,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_sU9MIMLoEe-Ylvh1L5-r6w" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_Uvsy5dPPEe-Vpqz9ZUKUBQ" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" enabled="false" type="Check" command="_sBNw1MLoEe-Ylvh1L5-r6w"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_MOFxEOluEe-TO4Ff6RyONA" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" enabled="false" type="Check" command="_sBNw1MLoEe-Ylvh1L5-r6w"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_sU9MIcLoEe-Ylvh1L5-r6w" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -497,6 +497,7 @@
     <bindings xmi:id="_sCh_fMLoEe-Ylvh1L5-r6w" keySequence="CTRL+PAGE_DOWN" command="_sBI4X8LoEe-Ylvh1L5-r6w"/>
     <bindings xmi:id="_sCh_fsLoEe-Ylvh1L5-r6w" keySequence="ALT+SHIFT+F3" command="_sBOX98LoEe-Ylvh1L5-r6w"/>
     <bindings xmi:id="_sCimccLoEe-Ylvh1L5-r6w" keySequence="SHIFT+DEL" command="_sBJfacLoEe-Ylvh1L5-r6w"/>
+    <bindings xmi:id="_5Aw08OfKEe-hj9bPqrxOpA" keySequence="CTRL+SHIFT+I" command="_5AK_EOfKEe-hj9bPqrxOpA"/>
   </bindingTables>
   <bindingTables xmi:id="_sBpOkMLoEe-Ylvh1L5-r6w" elementId="org.eclipse.ui.textEditorScope" bindingContext="_sBT3Y8LoEe-Ylvh1L5-r6w">
     <bindings xmi:id="_sBsR4MLoEe-Ylvh1L5-r6w" keySequence="CTRL+SHIFT+CR" command="_sBOX9sLoEe-Ylvh1L5-r6w"/>
@@ -738,6 +739,7 @@
     <bindings xmi:id="_sCjNsMLoEe-Ylvh1L5-r6w" keySequence="ALT+SHIFT+D O" command="_sBL7oMLoEe-Ylvh1L5-r6w"/>
     <bindings xmi:id="_sCjNscLoEe-Ylvh1L5-r6w" keySequence="ALT+SHIFT+D P" command="_sBOX48LoEe-Ylvh1L5-r6w"/>
     <bindings xmi:id="_sCjNssLoEe-Ylvh1L5-r6w" keySequence="ALT+SHIFT+D Q" command="_sBLUhcLoEe-Ylvh1L5-r6w"/>
+    <bindings xmi:id="_5A27kOfKEe-hj9bPqrxOpA" keySequence="TAB" command="_5AK_EefKEe-hj9bPqrxOpA"/>
   </bindingTables>
   <bindingTables xmi:id="_sBtgA8LoEe-Ylvh1L5-r6w" elementId="org.eclipse.mylyn.tasks.ui.views.tasks" bindingContext="_sBUenMLoEe-Ylvh1L5-r6w">
     <bindings xmi:id="_sBtgBMLoEe-Ylvh1L5-r6w" keySequence="CTRL+CR" command="_sBI4jMLoEe-Ylvh1L5-r6w"/>
@@ -1762,6 +1764,13 @@
     <persistedState key="originalCompatibilityViewBundle" value="tcpmonitor"/>
     <tags>View</tags>
     <tags>categoryTag:TCP Monitor</tags>
+  </descriptors>
+  <descriptors xmi:id="_5LjIoOfKEe-hj9bPqrxOpA" elementId="com.tabnine.eclipse.shared.chat.ChatBrowserView" label="Tabnine Chat" iconURI="platform:/plugin/com.tabnine.eclipse.shared/icons/tabnine-icon-13px.png" tooltip="" category="Tabnine views" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="com.tabnine.eclipse.shared.api.chat.ChatView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="com.tabnine.eclipse.shared"/>
+    <tags>View</tags>
+    <tags>inject</tags>
+    <tags>categoryTag:Tabnine views</tags>
   </descriptors>
   <trimContributions xmi:id="_2r10UF9tEeO-yojH_y4TJA" elementId="org.eclipse.ui.ide.application.trimcontribution.QuickAccess" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" toBeRendered="false" parentId="org.eclipse.ui.main.toolbar" positionInParent="last">
     <children xsi:type="menu:ToolControl" xmi:id="_76uUAF9tEeO-yojH_y4TJA" elementId="Spacer Glue" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">
@@ -3070,6 +3079,8 @@
   <commands xmi:id="_sTBSc8LoEe-Ylvh1L5-r6w" elementId="AUTOGEN:::org.eclipse.pde.ui.logViewActions/org.eclipse.jdt.debug.ui.LogViewActions.showStackTrace" commandName="Show Stack Trace in Console View" description="Show Stack Trace in Console View" category="_sA_uYMLoEe-Ylvh1L5-r6w"/>
   <commands xmi:id="_sTBSdMLoEe-Ylvh1L5-r6w" elementId="AUTOGEN:::org.eclipse.rse.ui.view.systemView.toolbar/org.eclipse.rse.ui.view.systemView.toolbar.linkWithSystemView" commandName="Link with Editor" category="_sA_uYMLoEe-Ylvh1L5-r6w"/>
   <commands xmi:id="_sTBSdcLoEe-Ylvh1L5-r6w" elementId="AUTOGEN:::org.eclipse.ui.articles.action.contribution.view/org.eclipse.wst.wsi.ui.internal.actions.actionDelegates.ValidateWSIProfileActionDelegate" commandName="WS-I Profile Validator" description="Validate WS-I Message Log File" category="_sA_uYMLoEe-Ylvh1L5-r6w"/>
+  <commands xmi:id="_5AK_EOfKEe-hj9bPqrxOpA" elementId="com.tabnine.eclipse.commands.openChat" commandName="Open Tabnine Chat" description="Open Tabnine Chat" category="_5AJJ4OfKEe-hj9bPqrxOpA"/>
+  <commands xmi:id="_5AK_EefKEe-hj9bPqrxOpA" elementId="com.tabnine.acceptInlineCompletion" commandName="Accept Inline Completion" description="Accept Inline Completion" category="_5AJJ4efKEe-hj9bPqrxOpA"/>
   <addons xmi:id="_r_ggncLoEe-Ylvh1L5-r6w" elementId="org.eclipse.e4.core.commands.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_r_ggnsLoEe-Ylvh1L5-r6w" elementId="org.eclipse.e4.ui.contexts.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_r_ggn8LoEe-Ylvh1L5-r6w" elementId="org.eclipse.e4.ui.bindings.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
@@ -3133,4 +3144,6 @@
   <categories xmi:id="_sBAVasLoEe-Ylvh1L5-r6w" elementId="org.eclipse.gef.category.view" name="View" description="View"/>
   <categories xmi:id="_sBAVa8LoEe-Ylvh1L5-r6w" elementId="org.eclipse.jdt.ui.category.source" name="Source" description="Java Source Actions"/>
   <categories xmi:id="_sBAVbMLoEe-Ylvh1L5-r6w" elementId="org.eclipse.dltk.ui.category.refactoring" name="Refactor - DLTK" description="DLTK Refactoring Actions"/>
+  <categories xmi:id="_5AJJ4OfKEe-hj9bPqrxOpA" elementId="com.tabnine.eclipse.category.chat" name="Tabnine - Editor" description="Tabnine chat category"/>
+  <categories xmi:id="_5AJJ4efKEe-hj9bPqrxOpA" elementId="com.tabnine.eclipse.category.editor" name="Tabnine - Editor" description="Tabnine editor category"/>
 </application:Application>
