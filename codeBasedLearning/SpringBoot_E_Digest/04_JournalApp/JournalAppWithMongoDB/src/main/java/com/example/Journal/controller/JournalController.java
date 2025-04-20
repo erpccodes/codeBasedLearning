@@ -21,22 +21,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Journal.entity.Journal;
 import com.example.Journal.service.JournalService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 
 @RestController
 @RequestMapping("/journal")
+@Tag(name = "Journal APIs", description = "Operations Related to Journals")
 public class JournalController {
 		
 	@Autowired
 	private JournalService journalService;
 	
-	@GetMapping()
+	@GetMapping
+	@Operation(summary = "Get all Journal Entries of a User")
 	public ResponseEntity<?> GetJournalsOfUser() {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
 		String username=authentication.getName();
 		return journalService.getAllJournalEntriesOfUser(username);
 	}
 	
-	@PostMapping()
+	@PostMapping
+	@Operation(summary = "Post a Journal Entry")
 	public ResponseEntity<Journal> PostJournal(@RequestBody Journal journal) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
 		String username=authentication.getName();
@@ -44,6 +50,7 @@ public class JournalController {
 	}
 	
 	@PutMapping("/id/{id}")
+	@Operation(summary = "Update a Journal Entry by ID")
 	public ResponseEntity<?> UpdateJournal(@PathVariable String id,@RequestBody Journal journal) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
 		String username=authentication.getName();
@@ -60,6 +67,7 @@ public class JournalController {
 	}
 	 
 	@DeleteMapping("/id/{id}")
+	@Operation(summary = "Delete a Journal Entry by ID")
 	public ResponseEntity<?> DeleteJournalforUser(@PathVariable String id) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
 		String username=authentication.getName();
@@ -73,6 +81,7 @@ public class JournalController {
 	}
 	
 	@GetMapping("/id/{id}")
+	@Operation(summary = "Get Journal Entry By ID")
 	public ResponseEntity<?> GetById(@PathVariable String id){
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
 		String username=authentication.getName();

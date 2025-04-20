@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.Journal.dto.UserDTO;
+import com.example.Journal.dto.UsersDTO;
 import com.example.Journal.entity.User;
 import com.example.Journal.entity.WeatherResponse;
 import com.example.Journal.exception.CustomApplicationException;
@@ -49,8 +50,6 @@ public class UserService {
 		if((user.getUserName()!=null && !user.getPassword().isEmpty()) && (user.getPassword()!=null && !user.getPassword().isEmpty())) {
 		try {
 			user.setPassword(encoder.encode(user.getPassword()));
-			if(user.getRoles()==null)
-				user.setRoles(Arrays.asList("USER"));
 			userRepository.insert(user);
 			log.info("inside save Entry, User saved sucessfully with Username:  "+user.getUserName());
 			UserDTO userDTO = mapToDTO(user);
