@@ -60,7 +60,7 @@ public class JournalService {
 			return new ResponseEntity<>("No Journal for this User",HttpStatus.NOT_FOUND);
 	}}
 	
-	public ResponseEntity<?> getJournalforId(ObjectId id,String username){
+	public ResponseEntity<?> getJournalforId(String id,String username){
 		User user=userRepository.findByUserName(username);
 		 Journal journal = user.getJournalEntries().stream()
 		            .filter(entry -> entry.getId().equals(id))
@@ -74,7 +74,7 @@ public class JournalService {
 			return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
 	}
 	
-	public  ResponseEntity<?> updateJournal(String username,ObjectId id,Journal journalNew){
+	public  ResponseEntity<?> updateJournal(String username,String id,Journal journalNew){
 		User user=userRepository.findByUserName(username);
 		Journal journal = user.getJournalEntries().stream()
 	            .filter(entry -> entry.getId().equals(id))
@@ -96,7 +96,7 @@ public class JournalService {
 	// it will delete the entry for both or neither of one
 	
 	@Transactional
-	public ResponseEntity<Journal> deleteJournal(String username,ObjectId id) {
+	public ResponseEntity<Journal> deleteJournal(String username,String id) {
 	boolean removed=false;
 		User user=userRepository.findByUserName(username);
 		removed=user.getJournalEntries().removeIf(x->x.getId().equals(id));

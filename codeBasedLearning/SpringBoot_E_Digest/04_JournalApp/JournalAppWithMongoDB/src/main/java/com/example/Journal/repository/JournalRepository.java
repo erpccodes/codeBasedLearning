@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 import com.example.Journal.entity.Journal;
 
 @Repository
-public interface JournalRepository extends MongoRepository<Journal, ObjectId> {
+public interface JournalRepository extends MongoRepository<Journal, String> {
 }

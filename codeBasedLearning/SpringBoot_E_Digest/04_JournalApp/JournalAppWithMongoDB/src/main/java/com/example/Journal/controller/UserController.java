@@ -16,6 +16,8 @@ import com.example.Journal.entity.User;
 import com.example.Journal.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +34,19 @@ public class UserController {
 	
 	@PutMapping("/perform")
 	@Operation(summary =  "Update the User details")
-	public ResponseEntity<User> UpdateUser(@RequestBody User user) {
+	public ResponseEntity<User> UpdateUser(@RequestBody 
+			@io.swagger.v3.oas.annotations.parameters.RequestBody(
+		            description = "Login payload with user credentials",
+		            required = true,
+		            content = @Content(
+		                    mediaType = "application/json",
+		                    examples = @ExampleObject(
+		                            name = "Login Example",
+		                            summary = "A typical login request",
+		                            value = "{ \"userName\": \"String\", \"password\": \"String\" }"
+		                    )
+		            )
+		    )User user) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();  //Fetching the object of currently authenticated user.
 		String username=authentication.getName();
 		return userService.updateUser(username,user);

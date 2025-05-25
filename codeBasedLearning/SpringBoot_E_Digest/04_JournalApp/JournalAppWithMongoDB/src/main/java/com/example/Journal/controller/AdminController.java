@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.Journal.dto.UserDTO;
 import com.example.Journal.entity.User;
 import com.example.Journal.repository.UserRepository;
 import com.example.Journal.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,7 +50,19 @@ public class AdminController {
 	
 	@PostMapping("/admin/add")
 	@Operation(summary =  "To Add a admin User but only ADMIN user can Add new ADMIN USER")
-	public ResponseEntity<?> CreateAdmin(@RequestBody User user) {
+	public ResponseEntity<?> CreateAdmin(@RequestBody 	
+			@io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "Login payload with user credentials",
+            required = true,
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = @ExampleObject(
+                            name = "Login Example",
+                            summary = "A typical login request",
+                            value = "{ \"userName\": \"String\", \"password\": \"String\" }"
+                    )
+            )
+    ) User user) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();  //Fetching the object of currently authenticated user.
 		String authenticatedUser=authentication.getName();
 		List<String> roles=userRepository.findByUserName(authenticatedUser).getRoles();

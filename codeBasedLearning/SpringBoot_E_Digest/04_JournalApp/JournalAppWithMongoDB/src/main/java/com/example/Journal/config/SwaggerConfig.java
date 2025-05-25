@@ -4,6 +4,8 @@ package com.example.Journal.config;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.OAuthFlow;
+import io.swagger.v3.oas.models.security.Scopes;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
@@ -12,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
@@ -32,13 +35,31 @@ public class SwaggerConfig {
 	                        new Tag().name("Admin APIs")
 	                ))
 	                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-	                .components(new Components().addSecuritySchemes(
-	                        "bearerAuth", new SecurityScheme()
-	                                .type(SecurityScheme.Type.HTTP)
-	                                .scheme("bearer")
-	                                .bearerFormat("JWT")
-	                                .in(SecurityScheme.In.HEADER)
-	                                .name("Authorization")
-	                ));				
+	                .addSecurityItem(new SecurityRequirement().addList("googleOAuth", List.of("openid","email","profile")))
+	                .components(new Components()
+	                        .addSecuritySchemes("bearerAuth",
+	                                new SecurityScheme()
+	                                        .type(SecurityScheme.Type.HTTP)
+	                                        .scheme("bearer")
+	                                        .bearerFormat("JWT")
+	                                        .in(SecurityScheme.In.HEADER)
+	                                        .name("Authorization")
+	                        )
+	                        .addSecuritySchemes("googleOAuth",
+	                                new SecurityScheme()
+	                                        .type(SecurityScheme.Type.OAUTH2)
+	                                        .flows(new io.swagger.v3.oas.models.security.OAuthFlows()
+	                                                .authorizationCode(new OAuthFlow()
+	                                                        .authorizationUrl("https://accounts.google.com/o/oauth2/v2/auth")
+	                                                        .tokenUrl("http://localhost:8282/auth/google/callback")
+	                                                        .scopes(new Scopes()
+	                                                        		.addString("openid", "OpenID Connect scope")
+	                                                        		.addString("email",   "Grants access to the user’s email address")
+	                                                        		.addString("profile", "Grants access to basic profile info (name, picture)")
+	                                                        		)
+	                                                )
+	                                        )
+	                        )
+	                );
 	    }
 	}

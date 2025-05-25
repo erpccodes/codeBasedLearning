@@ -38,6 +38,8 @@ public class SpringSecurity{
 	            		.requestMatchers("user/login").permitAll()
 	            		.requestMatchers("user/signup").permitAll()
 	            		.requestMatchers("user/admin/**").authenticated()
+	            		.requestMatchers("/auth/google/**").permitAll()
+	            		.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html","/custom-oauth2-redirect.html").permitAll()
 	            		//.hasRole("ADMIN")
 	            		.requestMatchers(
 	                            "/v3/api-docs/**",

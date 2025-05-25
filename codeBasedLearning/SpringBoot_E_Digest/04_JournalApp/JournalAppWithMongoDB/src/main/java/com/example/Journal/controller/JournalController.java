@@ -22,6 +22,8 @@ import com.example.Journal.entity.Journal;
 import com.example.Journal.service.JournalService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 
@@ -43,7 +45,14 @@ public class JournalController {
 	
 	@PostMapping
 	@Operation(summary = "Post a Journal Entry")
-	public ResponseEntity<Journal> PostJournal(@RequestBody Journal journal) {
+	public ResponseEntity<Journal> PostJournal(@RequestBody 
+			@io.swagger.v3.oas.annotations.parameters.RequestBody(
+		            required = true,
+		            content = @Content( mediaType = "application/json",examples = @ExampleObject(
+		                            name = "Login Example",
+		                            summary = "A typical login request",
+		                            value = "{ \"topic\": \"String\", \"content\": \"String\" }" )) )
+	Journal journal) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
 		String username=authentication.getName();
 		return journalService.saveJournalEntryOfUser(journal,username);
@@ -51,7 +60,14 @@ public class JournalController {
 	
 	@PutMapping("/id/{id}")
 	@Operation(summary = "Update a Journal Entry by ID")
-	public ResponseEntity<?> UpdateJournal(@PathVariable String id,@RequestBody Journal journal) {
+	public ResponseEntity<?> UpdateJournal(@PathVariable String id,@RequestBody
+			@io.swagger.v3.oas.annotations.parameters.RequestBody(
+		            required = true,
+		            content = @Content( mediaType = "application/json",examples = @ExampleObject(
+		                            name = "Login Example",
+		                            summary = "A typical login request",
+		                            value = "{ \"topic\": \"String\", \"content\": \"String\" }" )) )
+	 Journal journal) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
 		String username=authentication.getName();
 		// Handling case when we send wrong id in path variable then spring tries to convert this string to mongo objectid 
@@ -62,7 +78,7 @@ public class JournalController {
 		    }
 
 		    ObjectId objectId = new ObjectId(id);
-		return journalService.updateJournal(username,objectId,journal);
+		return journalService.updateJournal(username,id,journal);
 		
 	}
 	 
@@ -71,12 +87,12 @@ public class JournalController {
 	public ResponseEntity<?> DeleteJournalforUser(@PathVariable String id) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
 		String username=authentication.getName();
-		 if (!ObjectId.isValid(id)) {
-		        return new ResponseEntity<>("Journal Id is invalid", HttpStatus.BAD_REQUEST);
-		    }
+//		 if (!ObjectId.isValid(id)) {
+//		        return new ResponseEntity<>("Journal Id is invalid", HttpStatus.BAD_REQUEST);
+//		    }
 
-		    ObjectId objectId = new ObjectId(id);
-		return journalService.deleteJournal(username,objectId);
+		  //  ObjectId objectId = new ObjectId(id);
+		return journalService.deleteJournal(username,id);
 		
 	}
 	
@@ -85,11 +101,11 @@ public class JournalController {
 	public ResponseEntity<?> GetById(@PathVariable String id){
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication(); 
 		String username=authentication.getName();
-		if (!ObjectId.isValid(id)) {
-	        return new ResponseEntity<>("Journal Id is invalid", HttpStatus.BAD_REQUEST);
-	    }
-
-	    ObjectId objectId = new ObjectId(id);
-		return journalService.getJournalforId(objectId,username);
+//		if (!ObjectId.isValid(id)) {
+//	        return new ResponseEntity<>("Journal Id is invalid", HttpStatus.BAD_REQUEST);
+//	    }
+//
+//	    ObjectId objectId = new ObjectId(id);
+		return journalService.getJournalforId(id,username);
 	}
 }

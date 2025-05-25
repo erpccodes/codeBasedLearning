@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class Journal {
 
 	@Id
-	private ObjectId id;
+	private String id;
 	private String Topic;
 	private String content;
 	private LocalDateTime date; 
