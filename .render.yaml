@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: journal-app
+    env: java
+    plan: free
+    buildCommand: cd codeBasedLearning/SpringBoot_E_Digest/04_JournalApp/JournalAppWithMongoDB && ./mvnw clean package
+    startCommand: java -Dserver.port=$PORT -jar codeBasedLearning/SpringBoot_E_Digest/04_JournalApp/JournalAppWithMongoDB/target/JournalWithoutDB-0.0.1-SNAPSHOT.jar
