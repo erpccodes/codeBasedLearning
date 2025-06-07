@@ -10,6 +10,8 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.tags.Tag;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,6 +20,9 @@ import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
+	
+	 @Value("${swagger.server-url}")
+	 private String swaggerServerUrl;
 
 	  @Bean
 	    public OpenAPI myCustomConfig(){
@@ -26,7 +31,7 @@ public class SwaggerConfig {
 	                new Info().title("Journal App APIs")
 	                        .description("By Himanshu")
 	                )
-	                .servers(Arrays.asList(new Server().url("http://localhost:8282").description("local"),
+	                .servers(Arrays.asList(new Server().url(swaggerServerUrl).description("dynamic"),
 	                        new Server().url("http://localhost:8283").description("live")))
 	            .tags(Arrays.asList(
 	                        new Tag().name("Public APIs"),
